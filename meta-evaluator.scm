@@ -51,8 +51,9 @@
 
 (define expression-to-action
   (lambda (e)
-    ((atom? e) (atom-to-action e))
-    (else (list-to-action e))))
+    (cond
+     ((atom? e) (atom-to-action e))
+     (else (list-to-action e)))))
 
 (define atom-to-action
   (lambda (e)
@@ -95,11 +96,12 @@
 
 (define *const
   (lambda (e table)
-    ((number? e) e)
-    ((eq? e #t) #t)
-    ((eq? e #f) #f)
-    (else
-     (build (quote primitive) e))))
+    (cond
+     ((number? e) e)
+     ((eq? e #t) #t)
+     ((eq? e #f) #f)
+     (else
+      (build (quote primitive) e)))))
 
 (define *quote
   (lambda (e table)
@@ -156,10 +158,11 @@
 
 (define eval-list
   (lambda (args table)
-    ((null? args) (quote ()))
-    (else
-     (cons (meaning (car args) table)
-           (eval-list (cdr args) table)))))
+    (cond
+     ((null? args) (quote ()))
+     (else
+      (cons (meaning (car args) table)
+            (eval-list (cdr args) table))))))
 
 (define *application
   (lambda (e table)
@@ -192,28 +195,29 @@
 ;; in C.  Here we'll rely on the scheme interpreter.
 (define apply-primitive
   (lambda (function-name values)
-    ((eq? function-name (quote cons))
-     (cons (first values) (second values)))
-    ((eq? function-name (quote car))
-     (car (first values) (second values)))
-    ((eq? function-name (quote cdr))
-     (cdr (first values) (second values)))
-    ((eq? function-name (quote eq?))
-     (cdr (first values) (second values)))
+    (cond
+     ((eq? function-name (quote cons))
+      (cons (first values) (second values)))
+     ((eq? function-name (quote car))
+      (car (first values) (second values)))
+     ((eq? function-name (quote cdr))
+      (cdr (first values) (second values)))
+     ((eq? function-name (quote eq?))
+      (cdr (first values) (second values)))
 
-    ((eq? function-name (quote atom?))
-     (:atom? (first values)))
+     ((eq? function-name (quote atom?))
+      (:atom? (first values)))
 
-    ((eq? function-name (quote null?))
-     (null? (first values)))
-    ((eq? function-name (quote zero?))
-     (zero? (first values)))
-    ((eq? function-name (quote add1))
-     (add1 (first values)))
-    ((eq? function-name (quote sub1))
-     (sub1 (first values)))
-    ((eq? function-name (quote number?))
-     (number? (first values)))))
+     ((eq? function-name (quote null?))
+      (null? (first values)))
+     ((eq? function-name (quote zero?))
+      (zero? (first values)))
+     ((eq? function-name (quote add1))
+      (add1 (first values)))
+     ((eq? function-name (quote sub1))
+      (sub1 (first values)))
+     ((eq? function-name (quote number?))
+      (number? (first values))))))
 
 ;; both primtive and non-primitive function names
 ;; can be used as atoms
