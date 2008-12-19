@@ -121,7 +121,7 @@
   (lambda (e table)
     (build
      (quote non-primitive)
-     (cons table (arguments-and-body-of-function e))))))
+     (cons table (arguments-and-body-of-function e)))))
 
 (define arguments-and-body-of-function cdr)
 (define table-of                       first)
