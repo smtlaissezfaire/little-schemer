@@ -3,6 +3,7 @@
 (load "tables.scm")
 (load "eval.scm")
 (load "actions.scm")
+(load "conditional_support.scm")
 
 (define primitive?
   (lambda (l)
