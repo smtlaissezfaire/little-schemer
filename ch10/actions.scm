@@ -40,9 +40,6 @@
      ((and (atom? x) (eq? x (quote else))) #t)
      (else #f))))
 
-(define question-of first)
-(define answer-of   second)
-
 (define *cond
   (lambda (e table)
     (evcond (cond-lines-of e) table)))

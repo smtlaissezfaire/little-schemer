@@ -26,4 +26,6 @@
 (define cond-lines-of                  cdr)
 (define function-of                    car)
 (define arguments-of                   cdr)
+(define question-of                    first)
+(define answer-of                      second)
 
