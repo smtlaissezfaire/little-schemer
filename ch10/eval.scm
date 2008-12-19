@@ -42,3 +42,12 @@
        ((eq? (car e) (quote cond))   *cond)
        (else *applicaion)))
      (else *applicaion))))
+
+(define eval-list
+  (lambda (args table)
+    (cond
+     ((null? args) (quote ()))
+     (else
+      (cons (meaning (car args) table)
+            (eval-list (cdr args) table))))))
+

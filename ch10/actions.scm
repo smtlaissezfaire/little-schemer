@@ -47,14 +47,6 @@
   (lambda (e table)
     (evcond (cond-lines-of e) table)))
 
-(define eval-list
-  (lambda (args table)
-    (cond
-     ((null? args) (quote ()))
-     (else
-      (cons (meaning (car args) table)
-            (eval-list (cdr args) table))))))
-
 (define *application
   (lambda (e table)
     (apply
