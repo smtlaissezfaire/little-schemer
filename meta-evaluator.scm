@@ -1,18 +1,5 @@
 
-;; helpers
-(define first
-  (lambda (list)
-    (car list)))
-
-(define second
-  (lambda (list)
-    (car (cdr list))))
-
-(define build
-  (lambda (a b)
-    (cons a
-          (cons b
-                (cons (quote ()))))))
+(load "helpers.scm")
 
 (define lookup-in-entry
   (lambda (name entry entry-f)
