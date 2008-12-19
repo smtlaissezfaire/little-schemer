@@ -11,26 +11,15 @@
   (lambda (e table)
     (text-of e)))
 
-(define text-of second)
-
 (define *identifier
   (lambda (e table)
     (lookup-in-table e table initial-table)))
-
-(define initial-table
-  (lambda (e)
-    (car (quote ()))))
 
 (define *lambda
   (lambda (e table)
     (build
      (quote non-primitive)
      (cons table (arguments-and-body-of-function e)))))
-
-(define arguments-and-body-of-function cdr)
-(define table-of                       first)
-(define arguments-of                   second)
-(define body-of                        third)
 
 (define evcond
   (lambda (lines table)
@@ -58,8 +47,6 @@
   (lambda (e table)
     (evcond (cond-lines-of e) table)))
 
-(define cond-lines-of cdr)
-
 (define eval-list
   (lambda (args table)
     (cond
@@ -73,7 +60,3 @@
     (apply
      (meaning (function-of e) table)
      (eval-list (arguments-of e) table))))
-
-(define function-of car)
-(define arguments-of cdr)
-
